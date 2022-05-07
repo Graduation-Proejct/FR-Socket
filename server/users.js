@@ -27,13 +27,15 @@ const removeUser = (id) => {
 };
 
 const getUser = (id) => users.find((user) => user.id === id);
-
+const getPatient = () => users.find((user) => user.type === "patient");
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
 module.exports = {
   users,
+
   addUser,
   removeUser,
   getUser,
+  getPatient,
   getUsersInRoom,
 };

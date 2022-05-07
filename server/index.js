@@ -6,6 +6,7 @@ const {
   addUser,
   removeUser,
   getUser,
+  getPatient,
   getUsersInRoom,
   users,
 } = require("./users");
@@ -66,7 +67,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("faint-detected", () => {
-    socket.emit("are-you-ok");
+    const patient = getPatient();
+    if (patient) {
+      io.to(patient.id).emit("are-you-ok");
+    }
     timeout = setTimeout(() => {
       socket.broadcast.emit("faint-alarm");
     }, 5000);

@@ -17,6 +17,9 @@ const io = socketio(server, {
     origin: "*",
   },
 });
+
+let timeout = null;
+
 app.use(cors());
 
 io.on("connection", (socket) => {
@@ -62,10 +65,19 @@ io.on("connection", (socket) => {
     callback && callback();
   });
 
-  socket.on("faint-detected", () => {});
+  socket.on("faint-detected", () => {
+    socket.emit("are-you-ok");
+    timeout = setTimeout(() => {
+      socket.broadcast.emit("faint-alarm");
+    }, 5000);
+  });
+  socket.on("i-am-fine", () => {
+    clearTimeout(timeout);
+  });
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");
   });
+
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     if (user) {

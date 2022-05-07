@@ -2,7 +2,13 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const socketio = require("socket.io");
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom,
+  users,
+} = require("./users");
 
 const app = express();
 const server = http.createServer(app);
@@ -15,10 +21,10 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
-  socket.on("join", ({ name, room }, callback) => {
-    console.log("join", name, room);
-    const { error, user } = addUser({ id: socket.id, name, room });
 
+  socket.on("join", ({ name, type, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, type, room });
+    console.log(users);
     if (error) return callback(error);
 
     // Emit will send message to the user
@@ -56,7 +62,14 @@ io.on("connection", (socket) => {
     callback && callback();
   });
 
-  socket.on("faint-detected", () => {});
+  socket.on("faint-detected", () => {
+    // send the faint-detected message to one user and see if they reply in 30 seconds
+    const user = getUser(socket.id);
+    io.to(user.room).emit("faint-detected", { user: user.name });
+  });
+  socket.on("sos", () => {
+    socket.broadcast.emit("sos-activated");
+  });
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     if (user) {

@@ -7215,7 +7215,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@^18.0.0", "react-dom@^18.1.0":
+"react-dom@^18.0.0", "react-dom@^18.1.0", "react-dom@>=16.8":
   "integrity" "sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
   "version" "18.1.0"
@@ -7259,7 +7259,15 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"
   "version" "0.11.0"
 
-"react-router@^6.3.0":
+"react-router-dom@^6.3.0":
+  "integrity" "sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw=="
+  "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.3.0.tgz"
+  "version" "6.3.0"
+  dependencies:
+    "history" "^5.2.0"
+    "react-router" "6.3.0"
+
+"react-router@^6.3.0", "react-router@6.3.0":
   "integrity" "sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ=="
   "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.3.0.tgz"
   "version" "6.3.0"

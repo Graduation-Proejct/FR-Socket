@@ -1,16 +1,22 @@
 const express = require("express");
-const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
+const socketio = require("socket.io");
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+  },
+});
 app.use(cors());
 
 io.on("connection", (socket) => {
+  console.log("New client connected", socket.id);
   socket.on("join", ({ name, room }, callback) => {
+    console.log("join", name, room);
     const { error, user } = addUser({ id: socket.id, name, room });
 
     if (error) return callback(error);
@@ -36,7 +42,7 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getUsersInRoom(user.room),
     });
-    callback();
+    callback && callback();
   });
 
   socket.on("sendMessage", (message, callback) => {
@@ -47,9 +53,10 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getUsersInRoom(user.room),
     });
-    callback();
+    callback && callback();
   });
 
+  socket.on("faint-detected", () => {});
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     if (user) {

@@ -11,7 +11,7 @@ const addUser = ({ id, name, type, room }) => {
   if (existingUser) {
     return { error: "Username is taken" };
   }
-  const user = { id, name, room };
+  const user = { id, name, type, room };
 
   users.push(user);
   return { user };

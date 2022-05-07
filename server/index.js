@@ -62,11 +62,7 @@ io.on("connection", (socket) => {
     callback && callback();
   });
 
-  socket.on("faint-detected", () => {
-    // send the faint-detected message to one user and see if they reply in 30 seconds
-    const user = getUser(socket.id);
-    io.to(user.room).emit("faint-detected", { user: user.name });
-  });
+  socket.on("faint-detected", () => {});
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");
   });

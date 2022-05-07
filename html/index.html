@@ -15,16 +15,17 @@
   <button id="b">
     SOS
   </button>
+
   <script>
     var socket = io('http://localhost:5000');
-    let btn = document.getElementById('b');
-    btn.addEventListener('click', function () {
+    let sos = document.getElementById('b');
+    sos.addEventListener('click', function () {
       socket.emit('sos', {
         message: 'SOS'
       });
     });
 
-    socket.emit("join", { name: "mahmoud", room: "1" })
+    socket.emit("join", { name: "mahmoud", type: "patient", room: "1" })
     socket.on('connect', function () {
       console.log('connected');
 

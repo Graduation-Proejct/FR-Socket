@@ -21,9 +21,12 @@
   <button id="r">
     reset
   </button>
+  <button id="m">
+    message
+  </button>
 
   <script>
-    var socket = io('http://localhost:5000');
+    var socket = io('https://faintrush.herokuapp.com/');
     let sos = document.getElementById('b');
     sos.addEventListener('click', function () {
       socket.emit('sos', {
@@ -38,8 +41,13 @@
     });
     let reset = document.getElementById('r');
     reset.addEventListener('click', function () {
-      socket.emit('reset');
+      socket.emit('reset', { message: "reset" });
     });
+    let message = document.getElementById('m');
+    message.addEventListener('click', function () {
+      socket.emit('message', { message: "message" });
+    }
+    );
     socket.emit("join", { name: "mahmoud", type: "patient", room: "1" })
     socket.on('connect', function () {
       console.log('connected');

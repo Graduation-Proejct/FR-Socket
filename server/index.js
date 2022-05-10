@@ -89,6 +89,9 @@ io.on("connection", (socket) => {
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");
   });
+  socket.on("message", () => {
+    socket.broadcast.emit("message");
+  });
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
@@ -99,6 +102,11 @@ io.on("connection", (socket) => {
       });
     }
   });
+});
+
+//get request on / to show the app is working properly
+app.get("/", (req, res) => {
+  res.send("Server is running");
 });
 
 server.listen(process.env.PORT || 5000, () =>

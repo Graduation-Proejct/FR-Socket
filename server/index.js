@@ -80,11 +80,7 @@ io.on("connection", (socket) => {
     clearTimeout(timeout);
   });
   socket.on("reset", () => {
-    const detector = getDetector();
-    console.log(detector);
-    if (detector) {
-      io.to(detector.id).emit("reset");
-    }
+    socket.emit("reset", { message: "reset" });
   });
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");

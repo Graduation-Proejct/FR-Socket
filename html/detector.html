@@ -22,9 +22,7 @@
     var socket = io('http://localhost:5000');
     let sos = document.getElementById('b');
     sos.addEventListener('click', function () {
-      socket.emit('faint-detected', {
-        message: 'faint detected'
-      });
+      socket.emit('faint-detected');
     });
 
     socket.emit("join", { name: "detector", type: "detector", room: "1" })
@@ -39,7 +37,9 @@
     socket.on('disconnect', function () {
       console.log('disconnected');
     });
-
+    socket.on("reset", function () {
+      document.body.style.backgroundColor = "yellow";
+    })
 
   </script>
 </body>

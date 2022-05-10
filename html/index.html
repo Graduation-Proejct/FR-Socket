@@ -18,6 +18,9 @@
   <button id="f">
     I'm FINE
   </button>
+  <button id="r">
+    reset
+  </button>
 
   <script>
     var socket = io('http://localhost:5000');
@@ -33,7 +36,10 @@
         message: 'FINE'
       });
     });
-
+    let reset = document.getElementById('r');
+    reset.addEventListener('click', function () {
+      socket.emit('reset');
+    });
     socket.emit("join", { name: "mahmoud", type: "patient", room: "1" })
     socket.on('connect', function () {
       console.log('connected');

@@ -7,6 +7,7 @@ const {
   removeUser,
   getUser,
   getPatient,
+  getDetector,
   getUsersInRoom,
   users,
 } = require("./users");
@@ -77,6 +78,13 @@ io.on("connection", (socket) => {
   });
   socket.on("i-am-fine", () => {
     clearTimeout(timeout);
+  });
+  socket.on("reset", () => {
+    const detector = getDetector();
+    console.log(detector);
+    if (detector) {
+      io.to(detector.id).emit("reset");
+    }
   });
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");

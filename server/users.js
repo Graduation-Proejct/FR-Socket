@@ -28,6 +28,7 @@ const removeUser = (id) => {
 
 const getUser = (id) => users.find((user) => user.id === id);
 const getPatient = () => users.find((user) => user.type === "patient");
+const getDetector = () => users.find((user) => user.type === "detector");
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
 module.exports = {
@@ -37,5 +38,6 @@ module.exports = {
   removeUser,
   getUser,
   getPatient,
+  getDetector,
   getUsersInRoom,
 };

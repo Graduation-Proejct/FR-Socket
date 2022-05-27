@@ -24,17 +24,22 @@ const io = socketio(server, {
 let timeout = null;
 
 app.use(cors());
-const fixedDetectorTokens = [ "4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh" ];
+const fixedDetectorTokens = ["4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh"];
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
-  console.log("handshake headers => ", socket.handshake.headers);
-  let token = socket.handshake.query.token;
+
+  let token = socket.handshake.headers.token;
+  console.log("token => " + token);
   if (!fixedDetectorTokens.includes(token)) {
-    const isValidUser = isValid(token);
-    if (!isValidUser) {
-      //! check if this works with socket.io if not change it to socket.disconnect(socket.id)
-      socket.disconnect(true);
+    const isValidUser = isValid(token).then((res) => {
+      if (!res) {
+        //! check if this works with socket.io if not change it to socket.disconnect(socket.id)
+        socket.disconnect(true);
+      }
     }
+
+    )
+
   }
 
   socket.on("join", ({ name, type, room }, callback) => {

@@ -69,7 +69,9 @@
     socket.on("are-you-ok", function () {
       document.body.style.backgroundColor = "green";
     })
-
+    socket.on("reset", function () {
+      document.body.style.backgroundColor = "yellow";
+    })
 
   </script>
 </body>

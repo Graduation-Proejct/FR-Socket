@@ -15,7 +15,9 @@
   <button id="b">
     faint detected
   </button>
-
+  <button id="r">
+    reset
+  </button>
 
 
   <script>
@@ -24,6 +26,11 @@
     sos.addEventListener('click', function () {
       socket.emit('faint-detected');
     });
+    let reset = document.getElementById('r');
+    reset.addEventListener('click', function () {
+      socket.emit('reset');
+    });
+
 
     socket.emit("join", { name: "detector", type: "detector", room: "1" })
     socket.on('connect', function () {

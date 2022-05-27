@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
     clearTimeout(timeout);
   });
   socket.on("reset", () => {
-    socket.emit("reset", { message: "reset" });
+    socket.broadcast.emit("reset", { message: "reset" });
   });
   socket.on("sos", () => {
     socket.broadcast.emit("sos-activated");

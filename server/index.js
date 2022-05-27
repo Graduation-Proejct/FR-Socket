@@ -1,3 +1,4 @@
+const axios = require("axios");
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
@@ -23,11 +24,18 @@ const io = socketio(server, {
 let timeout = null;
 
 app.use(cors());
-
+const fixedDetectorTokens = [ "4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh" ];
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
-  console.log("handshake query => ", socket.handshake.query);
   console.log("handshake headers => ", socket.handshake.headers);
+  let token = socket.handshake.query.token;
+  if (!fixedDetectorTokens.includes(token)) {
+    const isValidUser = isValid(token);
+    if (!isValidUser) {
+      //! check if this works with socket.io if not change it to socket.disconnect(socket.id)
+      socket.disconnect(true);
+    }
+  }
 
   socket.on("join", ({ name, type, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, type, room });
@@ -101,6 +109,17 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+//? helper functions
+async function isValid(token) {
+  const isValid = await axios.post(
+    "https://faintbaseapp.herokuapp.com/is_auth",
+    {
+      UID: token,
+    }
+  );
+  return isValid.data;
+}
 
 //get request on / to show the app is working properly
 app.get("/", (req, res) => {

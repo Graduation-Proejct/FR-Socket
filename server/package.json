@@ -25,9 +25,11 @@
   },
   "homepage": "https://github.com/MahmoudMuhammedAli/FR-Socket#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "http": "^0.0.1-security",
+    "node-fetch": "^3.2.4",
     "nodemon": "^2.0.16",
     "socket.io": "^4.5.0"
   }

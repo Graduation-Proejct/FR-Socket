@@ -26,7 +26,7 @@
   </button>
 
   <script>
-    var socket = io('https://faintrush.herokuapp.com/');
+    var socket = io('http://localhost:5000', { extraHeaders: { "token": '4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh' } });
     let sos = document.getElementById('b');
     sos.addEventListener('click', function () {
       socket.emit('sos', {

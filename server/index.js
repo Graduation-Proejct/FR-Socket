@@ -26,6 +26,7 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   console.log("New client connected", socket.id);
+  console.log(socket.handshake.query);
 
   socket.on("join", ({ name, type, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, type, room });

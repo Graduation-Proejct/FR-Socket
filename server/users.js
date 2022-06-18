@@ -1,8 +1,8 @@
 const users = [];
 
 const addUser = ({ id, name, type, room }) => {
-  name = name.trim().toLowerCase();
-  room = room.trim().toLowerCase();
+  name = name?.trim().toLowerCase();
+
   // FIXME: the existingUser is not working properly
   const existingUser = users.find((user) => {
     user.room === room && user.name === name;
@@ -26,14 +26,13 @@ const removeUser = (id) => {
   }
 };
 
-const getUser = (id) => users.find((user) => user.id === id);
-const getPatient = () => users.find((user) => user.type === "patient");
-const getDetector = () => users.find((user) => user.type === "detector");
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
+const getUser = (id) => users.find((user) => user?.id === id);
+const getPatient = () => users.find((user) => user?.type === "patient");
+const getDetector = () => users.find((user) => user?.type === "detector");
+const getUsersInRoom = (room) => users.filter((user) => user?.room === room);
 
 module.exports = {
   users,
-
   addUser,
   removeUser,
   getUser,

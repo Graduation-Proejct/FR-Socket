@@ -26,7 +26,7 @@
   </button>
 
   <script>
-    var socket = io('http://localhost:5000', { extraHeaders: { "token": '4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh' } });
+    var socket = io('http://faintrush.herokuapp.com/');
     let sos = document.getElementById('b');
     sos.addEventListener('click', function () {
       socket.emit('sos', {
@@ -48,7 +48,7 @@
       socket.emit('message', { message: "message" });
     }
     );
-    socket.emit("join", { name: "mahmoud", type: "patient", room: "1" })
+    socket.emit("join", { name: "mahmoud", type: "patient", room: "1", token: '4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh' })
     socket.on('connect', function () {
       console.log('connected');
 

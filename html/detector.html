@@ -21,7 +21,7 @@
 
 
   <script>
-    var socket = io('http://localhost:5000', { extraHeaders: { "token": '4Xhk8fcNNWeRf11j5gKSt3KIHyT1VMCh' } });
+    var socket = io('http://faintrush.herokuapp.com/');
     let sos = document.getElementById('b');
     sos.addEventListener('click', function () {
       socket.emit('faint-detected');

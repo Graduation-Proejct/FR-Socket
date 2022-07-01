@@ -80,13 +80,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("faint-detected", () => {
-    const patient = getPatient();
-    if (patient) {
-      io.to(patient.id).emit("are-you-ok");
-    }
-    timeout = setTimeout(() => {
-      socket.broadcast.emit("faint-alarm");
-    }, 5000);
+    socket.broadcast.emit("faint-alarm");
+
+    // const patient = getPatient();
+    // if (patient) {
+    //   socket.broadcast.emit("are-you-ok");
+    // }
+    // timeout = setTimeout(() => {
+    //   socket.broadcast.emit("faint-alarm");
+    // }, 5000);
   });
   socket.on("i-am-fine", () => {
     clearTimeout(timeout);
